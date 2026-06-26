@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Environment files / secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+build_log.txt
+build_output.txt
+
+# Runtime / temporary files
+.runtime/
+uploads/
+tmp/
+temp/
+.cache/
+
+# Editor / OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
