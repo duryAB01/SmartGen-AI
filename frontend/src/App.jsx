@@ -199,7 +199,7 @@ export default function App() {
       <ThemeCtx.Provider value={{ theme, toggleTheme }}>
         <ToastProvider>
           <VoiceJobProvider>
-          <BrowserRouter>
+          <BrowserRouter basename={import.meta.env.DEV ? '/' : '/SmartGen-AI'}>
             <Routes>
               <Route path="/"          element={<LandingPage />} />
               <Route path="/auth"      element={!user ? <AuthPage /> : <Navigate to="/dashboard" />} />
