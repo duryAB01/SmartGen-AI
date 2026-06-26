@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Sidebar from '../components/Sidebar.jsx'
 import WorkspaceThemeToggle from '../components/WorkspaceThemeToggle.jsx'
 import { useToast, useAuth } from '../App.jsx'
@@ -9,29 +9,132 @@ import {
   MdRefresh, MdDelete, MdCheckCircle, MdAccountCircle,
   MdSettings, MdAdminPanelSettings, MdLogout
 } from 'react-icons/md'
-import { FaInstagram, FaFacebook, FaLinkedin } from 'react-icons/fa'
+import { FaInstagram, FaFacebook, FaLinkedin, FaTiktok, FaYoutube, FaXTwitter, FaThreads, FaPinterest, FaSnapchat, FaWhatsapp, FaEnvelope, FaPenNib, FaEarthAmericas, FaHashtag, FaBullhorn } from 'react-icons/fa6'
 import api from '../services/api.js'
 import getApiErrorMessage from '../utils/getApiErrorMessage.js'
 import LoadingState from '../components/LoadingState.jsx'
 import ErrorAlert from '../components/ErrorAlert.jsx'
-import { PlatformSelector, OutputTypeSelector, ToneSelector, UsageRemainingBadge, AutoSavedIndicator, GenerateButton } from '../components/GenerationControls.jsx'
-
-const CONTENT_TYPES = [
-  { id: 'caption',    label: 'Image Caption',      color: '#00e5b0' },
-  { id: 'hashtags',   label: 'Hashtags',            color: '#00b8ff' },
-  { id: 'product',    label: 'Product Description', color: '#7c6af7' },
-  { id: 'social',     label: 'Social Media Post',   color: '#ff4d6a' },
-  { id: 'marketing',  label: 'Marketing Copy',      color: '#ffb830' },
-]
+import { PlatformDropdownSelector, OutputTypeSelector, ToneSelector, UsageRemainingBadge, AutoSavedIndicator, GenerateButton } from '../components/GenerationControls.jsx'
 
 const PLATFORMS = [
-  { id: 'instagram', label: 'Instagram', icon: FaInstagram, color: '#E4405F' },
-  { id: 'facebook',  label: 'Facebook',  icon: FaFacebook,  color: '#1877F2' },
-  { id: 'linkedin',  label: 'LinkedIn',  icon: FaLinkedin,  color: '#0077B5' },
-  { id: 'blog',      label: 'Blog',      color: '#7c6af7' },
-  { id: 'general',   label: 'General',   color: '#8a8fa8' },
+  { id: 'instagram', label: 'Instagram', icon: FaInstagram, color: '#E1306C', accent: '#F77737', summary: 'Reels, captions, carousels, and hashtags.' },
+  { id: 'tiktok', label: 'TikTok', icon: FaTiktok, color: '#00F2EA', accent: '#FF0050', summary: 'Short video captions, hooks, and hashtag sets.' },
+  { id: 'youtube', label: 'YouTube', icon: FaYoutube, color: '#FF0033', accent: '#FF6B6B', summary: 'Thumbnails, descriptions, community posts, and tags.' },
+  { id: 'linkedin', label: 'LinkedIn', icon: FaLinkedin, color: '#0A66C2', accent: '#70B5F9', summary: 'Professional image posts and carousel copy.' },
+  { id: 'facebook', label: 'Facebook', icon: FaFacebook, color: '#1877F2', accent: '#8AB4F8', summary: 'Warm page posts, community updates, and promos.' },
+  { id: 'twitter', label: 'X', icon: FaXTwitter, color: '#F8FAFC', accent: '#94A3B8', summary: 'Concise image posts, hooks, replies, and tags.' },
+  { id: 'threads', label: 'Threads', icon: FaThreads, color: '#F8FAFC', accent: '#A78BFA', summary: 'Conversational image posts and casual hooks.' },
+  { id: 'pinterest', label: 'Pinterest', icon: FaPinterest, color: '#E60023', accent: '#FF8AA1', summary: 'Pin titles, descriptions, boards, and keywords.' },
+  { id: 'snapchat', label: 'Snapchat', icon: FaSnapchat, color: '#FFFC00', accent: '#FFF7AD', summary: 'Story captions, overlays, and spotlight hooks.' },
+  { id: 'whatsapp', label: 'WhatsApp', icon: FaWhatsapp, color: '#25D366', accent: '#86EFAC', summary: 'Status text, broadcasts, and friendly promos.' },
+  { id: 'email', label: 'Email', icon: FaEnvelope, color: '#FFB830', accent: '#FDE68A', summary: 'Subject lines and image-led announcement copy.' },
+  { id: 'blog', label: 'Blog', icon: FaPenNib, color: '#FF5722', accent: '#FDBA74', summary: 'SEO-friendly image context and article support.' },
+  { id: 'website', label: 'Website', icon: FaEarthAmericas, color: '#00E5B0', accent: '#67E8F9', summary: 'Hero copy, product descriptions, and CTA lines.' }
 ]
 
+const PLATFORM_FORMATS = {
+  instagram: [
+    { id: 'reel-caption', label: 'Reel Caption', icon: MdImage, color: '#E1306C' },
+    { id: 'post-caption', label: 'Post Caption', icon: FaInstagram, color: '#F77737' },
+    { id: 'carousel-caption', label: 'Carousel Caption', icon: MdAutoAwesome, color: '#A78BFA' },
+    { id: 'story-text', label: 'Story Text', icon: MdAutoAwesome, color: '#00D4FF' },
+    { id: 'hashtag-set', label: 'Hashtag Set', icon: FaHashtag, color: '#00E5B0' }
+  ],
+  tiktok: [
+    { id: 'video-caption', label: 'Video Caption', icon: FaTiktok, color: '#00F2EA' },
+    { id: 'hook', label: 'Hook', icon: MdAutoAwesome, color: '#FF0050' },
+    { id: 'short-description', label: 'Short Description', icon: MdImage, color: '#A78BFA' },
+    { id: 'hashtag-set', label: 'Hashtags', icon: FaHashtag, color: '#00E5B0' },
+    { id: 'cta', label: 'CTA', icon: FaBullhorn, color: '#FFD93D' }
+  ],
+  youtube: [
+    { id: 'thumbnail-title', label: 'Thumbnail Title', icon: FaYoutube, color: '#FF0033' },
+    { id: 'shorts-caption', label: 'Shorts Caption', icon: MdImage, color: '#FF6B6B' },
+    { id: 'video-description', label: 'Video Description', icon: MdAutoAwesome, color: '#A78BFA' },
+    { id: 'community-post', label: 'Community Post', icon: FaBullhorn, color: '#38BDF8' },
+    { id: 'tags', label: 'Tags', icon: FaHashtag, color: '#00E5B0' }
+  ],
+  linkedin: [
+    { id: 'professional-post', label: 'Professional Post', icon: FaLinkedin, color: '#0A66C2' },
+    { id: 'carousel-text', label: 'Carousel Text', icon: MdImage, color: '#70B5F9' },
+    { id: 'article-intro', label: 'Article Intro', icon: FaPenNib, color: '#A78BFA' },
+    { id: 'cta', label: 'CTA', icon: FaBullhorn, color: '#FFD93D' },
+    { id: 'hashtag-set', label: 'Hashtags', icon: FaHashtag, color: '#00E5B0' }
+  ],
+  facebook: [
+    { id: 'page-post', label: 'Page Post', icon: FaFacebook, color: '#1877F2' },
+    { id: 'event-promo', label: 'Event Promo', icon: FaBullhorn, color: '#FFD93D' },
+    { id: 'product-post', label: 'Product Post', icon: MdImage, color: '#8AB4F8' },
+    { id: 'community-update', label: 'Community Update', icon: MdAutoAwesome, color: '#00E5B0' },
+    { id: 'hashtag-set', label: 'Hashtags', icon: FaHashtag, color: '#38BDF8' }
+  ],
+  twitter: [
+    { id: 'tweet', label: 'Tweet', icon: FaXTwitter, color: '#F8FAFC' },
+    { id: 'thread', label: 'Thread', icon: FaThreads, color: '#A78BFA' },
+    { id: 'hook', label: 'Hook', icon: MdAutoAwesome, color: '#00E5B0' },
+    { id: 'reply', label: 'Reply', icon: MdImage, color: '#38BDF8' },
+    { id: 'hashtag-set', label: 'Hashtags', icon: FaHashtag, color: '#94A3B8' }
+  ],
+  threads: [
+    { id: 'thread-post', label: 'Thread Post', icon: FaThreads, color: '#F8FAFC' },
+    { id: 'conversational-post', label: 'Conversational Post', icon: MdImage, color: '#A78BFA' },
+    { id: 'hook', label: 'Hook', icon: MdAutoAwesome, color: '#00E5B0' },
+    { id: 'cta', label: 'CTA', icon: FaBullhorn, color: '#FFD93D' }
+  ],
+  pinterest: [
+    { id: 'pin-title', label: 'Pin Title', icon: FaPinterest, color: '#E60023' },
+    { id: 'pin-description', label: 'Pin Description', icon: MdImage, color: '#FF8AA1' },
+    { id: 'board-description', label: 'Board Description', icon: MdAutoAwesome, color: '#A78BFA' },
+    { id: 'keywords', label: 'Keywords', icon: FaHashtag, color: '#00E5B0' },
+    { id: 'cta', label: 'CTA', icon: FaBullhorn, color: '#FFD93D' }
+  ],
+  snapchat: [
+    { id: 'story-caption', label: 'Story Caption', icon: FaSnapchat, color: '#FFFC00' },
+    { id: 'overlay-text', label: 'Overlay Text', icon: MdImage, color: '#38BDF8' },
+    { id: 'spotlight-hook', label: 'Spotlight Hook', icon: MdAutoAwesome, color: '#00E5B0' },
+    { id: 'cta', label: 'CTA', icon: FaBullhorn, color: '#FFD93D' }
+  ],
+  whatsapp: [
+    { id: 'status-text', label: 'Status Text', icon: FaWhatsapp, color: '#25D366' },
+    { id: 'broadcast-message', label: 'Broadcast Message', icon: MdImage, color: '#86EFAC' },
+    { id: 'short-promo', label: 'Short Promo', icon: FaBullhorn, color: '#FFB830' },
+    { id: 'friendly-message', label: 'Friendly Message', icon: MdAutoAwesome, color: '#00E5B0' }
+  ],
+  email: [
+    { id: 'subject-line', label: 'Subject Line', icon: FaEnvelope, color: '#FFB830' },
+    { id: 'image-email', label: 'Image Email', icon: MdImage, color: '#38BDF8' },
+    { id: 'announcement', label: 'Announcement', icon: FaBullhorn, color: '#FFD93D' },
+    { id: 'cta', label: 'CTA', icon: MdAutoAwesome, color: '#00E5B0' }
+  ],
+  blog: [
+    { id: 'blog-title', label: 'Blog Title', icon: FaPenNib, color: '#FF5722' },
+    { id: 'introduction', label: 'Introduction', icon: MdImage, color: '#FDBA74' },
+    { id: 'meta-description', label: 'Meta Description', icon: MdAutoAwesome, color: '#38BDF8' },
+    { id: 'seo-keywords', label: 'SEO Keywords', icon: FaHashtag, color: '#00E5B0' },
+    { id: 'cta', label: 'CTA', icon: FaBullhorn, color: '#FFD93D' }
+  ],
+  website: [
+    { id: 'hero-copy', label: 'Hero Copy', icon: FaEarthAmericas, color: '#00E5B0' },
+    { id: 'product-description', label: 'Product Description', icon: MdImage, color: '#7C6AF7' },
+    { id: 'landing-copy', label: 'Landing Copy', icon: FaPenNib, color: '#38BDF8' },
+    { id: 'cta-lines', label: 'CTA Lines', icon: FaBullhorn, color: '#FFD93D' }
+  ]
+}
+
+const LEGACY_CONTENT_TYPE_MAP = {
+  caption: 'post-caption',
+  hashtags: 'hashtag-set',
+  product: 'product-description',
+  social: 'page-post',
+  marketing: 'cta'
+}
+
+const getImageFormats = (platformId) => PLATFORM_FORMATS[platformId] || PLATFORM_FORMATS.instagram
+const normalizeImageContentType = (platformId, type) => {
+  const formats = getImageFormats(platformId)
+  const mapped = LEGACY_CONTENT_TYPE_MAP[type] || type
+  return formats.some((item) => item.id === mapped) ? mapped : formats[0].id
+}
 const TONES = ['Professional', 'Friendly', 'Creative', 'Casual', 'Persuasive']
 
 export default function ImageGeneratorPage() {
@@ -43,7 +146,7 @@ export default function ImageGeneratorPage() {
   const [image, setImage]           = useState(null)
   const [imagePreview, setImagePreview] = useState('')
   const [prompt, setPrompt]         = useState('')
-  const [contentType, setContentType] = useState('caption')
+  const [contentType, setContentType] = useState('reel-caption')
   const [platform, setPlatform]     = useState('instagram')
   const [tone, setTone]             = useState('Professional')
   const [output, setOutput]         = useState('')
@@ -69,6 +172,15 @@ export default function ImageGeneratorPage() {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+
+  // Pre-fill prompt when navigating from Playground
+  useEffect(() => {
+    const initial = location.state?.initialPrompt
+    if (initial) {
+      setPrompt(initial)
+      navigate('/image-gen', { replace: true, state: null })
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const validateImage = (file) => {
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
@@ -104,8 +216,8 @@ export default function ImageGeneratorPage() {
     if (loading) return
     const selectedImage = draft?.image || image
     const selectedPrompt = draft?.prompt ?? prompt
-    const selectedContentType = draft?.contentType || contentType
     const selectedPlatform = draft?.platform || platform
+    const selectedContentType = normalizeImageContentType(selectedPlatform, draft?.contentType || contentType)
     const selectedTone = draft?.tone || tone
 
     if (!selectedImage) {
@@ -156,8 +268,9 @@ export default function ImageGeneratorPage() {
 
     handleFileSelect(draft.file)
     setPrompt(draft.prompt || '')
-    setContentType(draft.contentType || 'caption')
-    setPlatform(draft.platform || 'instagram')
+    const draftPlatform = draft.platform || 'instagram'
+    setPlatform(draftPlatform)
+    setContentType(normalizeImageContentType(draftPlatform, draft.contentType || 'reel-caption'))
     setTone(draft.tone || 'Professional')
     navigate('/image-gen', { replace: true, state: null })
 
@@ -165,8 +278,8 @@ export default function ImageGeneratorPage() {
       handleGenerate({
         image: draft.file,
         prompt: draft.prompt || '',
-        contentType: draft.contentType || 'caption',
-        platform: draft.platform || 'instagram',
+        platform: draftPlatform,
+        contentType: normalizeImageContentType(draftPlatform, draft.contentType || 'reel-caption'),
         tone: draft.tone || 'Professional'
       })
     }
@@ -197,12 +310,21 @@ export default function ImageGeneratorPage() {
   const displayName = user?.name || (user?.email ? user.email.split('@')[0] : 'User')
   const avatarLetter = (user?.name || user?.email || 'U')[0].toUpperCase()
 
+  const platformMeta = PLATFORMS.find((item) => item.id === platform) || PLATFORMS[0]
+  const formatOptions = getImageFormats(platform)
+  const selectedFormat = formatOptions.find((item) => item.id === contentType) || formatOptions[0]
+
+  const handlePlatformChange = (nextPlatform) => {
+    setPlatform(nextPlatform)
+    setContentType((current) => normalizeImageContentType(nextPlatform, current))
+  }
+
   return (
     <div className="app-layout">
       <Sidebar />
       <main className="main-content">
         
-        {/* â”€â”€ Navbar/Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── Navbar/Header ─────────────────────────────────────────────────── */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, position: 'relative' }}>
           <div>
             <h1 style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 800, color: 'var(--text)', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -300,11 +422,14 @@ export default function ImageGeneratorPage() {
               </div>
               <div className="form-group">
                 <label className="form-label">Platform</label>
-                <PlatformSelector platforms={PLATFORMS} value={platform} onChange={setPlatform} />
+                <PlatformDropdownSelector platforms={PLATFORMS} value={platform} onChange={handlePlatformChange} title="Select platform" hint="Image format options update automatically." />
               </div>
               <div className="form-group">
-                <label className="form-label">Output Type</label>
-                <OutputTypeSelector options={CONTENT_TYPES} value={contentType} onChange={setContentType} />
+                <div className="dashboard-format-header" style={{ marginBottom: 10 }}>
+                  <span>Choose {platformMeta.label} format</span>
+                  <strong>{selectedFormat.label}</strong>
+                </div>
+                <OutputTypeSelector options={formatOptions} value={contentType} onChange={setContentType} />
               </div>
               <div className="form-group">
                 <label className="form-label">Tone</label>
@@ -355,7 +480,7 @@ export default function ImageGeneratorPage() {
                       <div style={{ display: 'flex', gap: 8 }}>
                         <span className="badge badge-green">AI Generated</span>
                         <AutoSavedIndicator visible={autoSaved} />
-                        <span className="badge badge-blue">{CONTENT_TYPES.find(c => c.id === contentType)?.label}</span>
+                        <span className="badge badge-blue">{selectedFormat.label}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -371,15 +496,20 @@ export default function ImageGeneratorPage() {
             <MdCheckCircle /> PRO TIPS
           </div>
           <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap', fontSize: 13, color: 'var(--text2)' }}>
-            <span>â€¢ Use high-quality images for better analysis</span>
-            <span>â€¢ Add specific prompts for targeted content</span>
-            <span>â€¢ Different platforms require different tones</span>
-            <span>â€¢ Max file size: 5MB (JPG, PNG, WEBP only)</span>
+            <span>• Use high-quality images for better analysis</span>
+            <span>• Add specific prompts for targeted content</span>
+            <span>• Different platforms require different tones</span>
+            <span>• Max file size: 5MB (JPG, PNG, WEBP only)</span>
           </div>
         </motion.div>
       </main>
     </div>
   )
 }
+
+
+
+
+
 
 

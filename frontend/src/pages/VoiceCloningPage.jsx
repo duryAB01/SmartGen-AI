@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   MdAudiotrack,
@@ -24,6 +24,7 @@ import WorkspaceThemeToggle from '../components/WorkspaceThemeToggle.jsx'
 import { useAuth, useToast, useVoiceJob } from '../App.jsx'
 import api from '../services/api.js'
 import { deleteDefaultVoiceSample, getDefaultVoiceSample, saveDefaultVoiceSample } from '../services/voiceProfileStorage.js'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const REFERENCE_TEXT = 'The quick brown fox jumps over the lazy dog. Please speak clearly, with a calm and natural voice. Bright stars shine above the quiet valley, while gentle waves move across the shore.'
 const MAX_AUDIO_SIZE = 15 * 1024 * 1024
@@ -43,7 +44,6 @@ const PRESETS = [
 ]
 
 const DELIVERY_TONES = ['Calm', 'Friendly', 'Energetic', 'Serious']
-const VOICE_PLATFORMS = ['Instagram', 'TikTok', 'YouTube', 'LinkedIn', 'X', 'Threads', 'WhatsApp', 'Blog', 'Pinterest']
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60)
@@ -76,6 +76,8 @@ export default function VoiceCloningPage() {
   const toast = useToast()
   const { user } = useAuth()
   const voiceOwnerId = user?._id || user?.id || user?.email || 'local'
+  const location = useLocation()
+  const navigate = useNavigate()
   const {
     job,
     trackJob,
@@ -98,7 +100,6 @@ export default function VoiceCloningPage() {
   const [topic, setTopic] = useState('')
   const [preset, setPreset] = useState('custom')
   const [deliveryTone, setDeliveryTone] = useState('Friendly')
-  const [platform, setPlatform] = useState('Instagram')
   const [script, setScript] = useState('')
   const [addFillers, setAddFillers] = useState(true)
   const [scriptLoading, setScriptLoading] = useState(false)
@@ -242,6 +243,16 @@ export default function VoiceCloningPage() {
     loadVoiceDefaults()
     return () => { active = false }
   }, [])
+
+  // Pre-fill topic when navigating from Playground
+  useEffect(() => {
+    const initial = location.state?.initialTopic
+    if (initial) {
+      setTopic(initial)
+      setScriptMode('topic')
+      navigate('/voice-cloning', { replace: true, state: null })
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleRememberVoice = async (event) => {
     const shouldRemember = event.target.checked
@@ -405,12 +416,12 @@ export default function VoiceCloningPage() {
         : 'Do not add filler words.'
       const response = await api.post('/content/generate-text', {
         prompt: 'Write a concise spoken voice-over script about: ' + source
-          + '. Target platform: ' + platform + '. Delivery tone: ' + deliveryTone
+          + '. Delivery tone: ' + deliveryTone
           + '. Add natural punctuation, short sentences, and contextual pauses using commas or ellipses. '
           + fillersInstruction
           + ' Return only the final spoken script. Do not use stage directions, SSML, brackets, or labels.',
         tone: deliveryTone,
-        platform,
+        platform: 'Voice',
         contentType: 'spoken script',
         keywords: ''
       })
@@ -473,7 +484,6 @@ export default function VoiceCloningPage() {
       formData.append('quality', quality)
       formData.append('variation', variation)
       formData.append('remove_silence', String(removeSilence))
-      formData.append('platform', platform)
       formData.append('tone', deliveryTone)
 
       const response = await api.post('/voice/jobs', formData, {
@@ -633,12 +643,7 @@ export default function VoiceCloningPage() {
                     {PRESETS.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
                   </select>
                 </label>
-                <label>
-                  <span>Platform</span>
-                  <select value={platform} onChange={(event) => setPlatform(event.target.value)}>
-                    {VOICE_PLATFORMS.map((item) => <option key={item}>{item}</option>)}
-                  </select>
-                </label>
+
                 <label>
                   <span>Tone</span>
                   <select value={deliveryTone} onChange={(event) => setDeliveryTone(event.target.value)}>
@@ -757,6 +762,8 @@ export default function VoiceCloningPage() {
     </div>
   )
 }
+
+
 
 
 

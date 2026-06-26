@@ -178,9 +178,14 @@ export default function Sidebar() {
                 {user?.role === 'admin' ? 'Administrator' : `${stats?.plan === 'starter' ? 'Starter' : 'Free'} Workspace`}
               </div>
               {stats && (
-                <div style={{ fontSize: 10, color: 'var(--accent)', marginTop: 4 }}>
-                  {stats.generationsThisMonth} generations this month
-                </div>
+                <>
+                  <div style={{ fontSize: 10, color: 'var(--accent)', marginTop: 4 }}>
+                    {stats.generationsThisMonth} generations this month
+                  </div>
+                  <div style={{ fontSize: 10, color: 'var(--text3)', marginTop: 2 }}>
+                    {stats.remainingToday ?? 0} credits left today
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -207,5 +212,6 @@ export default function Sidebar() {
     </>
   )
 }
+
 
 

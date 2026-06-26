@@ -8,7 +8,7 @@ import {
   MdAutoAwesome, MdContentCopy, MdDownload, MdSave,
   MdRefresh, MdStar, MdInfoOutline, MdAccountCircle,
   MdSettings, MdAdminPanelSettings, MdLogout, MdHistory,
-  MdExpandMore
+  MdExpandMore, MdRecordVoiceOver, MdImage
 } from 'react-icons/md'
 import {
   FaHashtag, FaFileLines, FaBullhorn, FaEnvelope,
@@ -220,6 +220,8 @@ export default function Dashboard() {
   const toast = useToast()
   
   const [activeTab, setActiveTab] = useState('writer')
+  const [playgroundMode, setPlaygroundMode] = useState('write')
+  const [playgroundInput, setPlaygroundInput] = useState('')
   const [type, setType]         = useState(['post-caption'])
   const [keywords, setKeywords] = useState('')
   const [topic, setTopic]       = useState('')
@@ -417,6 +419,21 @@ export default function Dashboard() {
     setError('')
   }
 
+  const handlePlaygroundGo = () => {
+    if (!playgroundInput.trim()) return
+    if (playgroundMode === 'write') {
+      setTopic(playgroundInput)
+      setActiveTab('writer')
+      setPlaygroundInput('')
+    } else if (playgroundMode === 'image') {
+      navigate('/image-gen', { state: { initialPrompt: playgroundInput } })
+    } else if (playgroundMode === 'voice') {
+      navigate('/voice-cloning', { state: { initialTopic: playgroundInput } })
+    } else if (playgroundMode === 'rewrite') {
+      navigate('/rewrite', { state: { initialInput: playgroundInput } })
+    }
+  }
+
   const displayName = user?.name || (user?.email ? user.email.split('@')[0] : 'User')
   const avatarLetter = (user?.name || user?.email || 'U')[0].toUpperCase()
   const platformMeta = PLATFORMS.find((item) => item.id === platform) || PLATFORMS[0]
@@ -524,11 +541,79 @@ export default function Dashboard() {
                 </div>
                 <div className="stat-card">
                   <div className="stat-value" style={{ color: 'var(--accent4)' }}>
-                    Starter
+                    {workspaceStats?.plan === 'starter' ? 'Starter' : 'Free'}
                   </div>
                   <div className="stat-label">Current Plan</div>
                 </div>
               </div>
+
+              {/* ── AI Playground Card ───────────────────────────────────────────── */}
+              <motion.div
+                className="dashboard-playground-card"
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.4 }}
+              >
+                <div className="dashboard-playground-glow" />
+
+                {/* Left – copy */}
+                <div className="dashboard-playground-copy">
+                  <div className="dashboard-playground-kicker">
+                    <MdAutoAwesome size={12} />
+                    AI Playground
+                  </div>
+                  <h3>Create anything,<br />in seconds.</h3>
+                  <p>Type a topic or idea below, choose your tool, and SmartGen AI will take it from there — captions, images, voice-overs, and more.</p>
+                </div>
+
+                {/* Right – interactive panel */}
+                <div className="dashboard-playground-panel">
+                  {/* Mode pills */}
+                  <div className="dashboard-playground-modes">
+                    {[
+                      { id: 'write',   label: 'Writer',  Icon: FaWandMagicSparkles },
+                      { id: 'image',   label: 'Image',   Icon: MdImage },
+                      { id: 'voice',   label: 'Voice',   Icon: MdRecordVoiceOver },
+                      { id: 'rewrite', label: 'Rewrite', Icon: FaArrowsRotate },
+                    ].map(({ id, label, Icon }) => (
+                      <motion.button
+                        key={id}
+                        type="button"
+                        whileTap={{ scale: 0.96 }}
+                        className={playgroundMode === id ? 'active' : ''}
+                        onClick={() => setPlaygroundMode(id)}
+                      >
+                        <Icon size={13} />
+                        {label}
+                      </motion.button>
+                    ))}
+                  </div>
+
+                  {/* Input + Go */}
+                  <div className="dashboard-playground-input-row">
+                    <input
+                      type="text"
+                      placeholder={
+                        playgroundMode === 'write'   ? 'e.g. summer sale launch for Instagram' :
+                        playgroundMode === 'image'   ? 'e.g. cozy coffee shop flat-lay caption' :
+                        playgroundMode === 'voice'   ? 'e.g. product promo for TikTok' :
+                        'Paste the text you want to rewrite…'
+                      }
+                      value={playgroundInput}
+                      onChange={e => setPlaygroundInput(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && handlePlaygroundGo()}
+                    />
+                    <motion.button
+                      type="button"
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
+                      onClick={handlePlaygroundGo}
+                    >
+                      Open Tool →
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
 
               {/* Quick Actions */}
               <h3 style={{ fontFamily: 'var(--font-head)', fontSize: 15, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text2)', marginBottom: 16 }}>
@@ -569,6 +654,11 @@ export default function Dashboard() {
                   <FaImage size={22} color="var(--accent)" style={{ marginBottom: 12 }} />
                   <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)', marginBottom: 4 }}>Image Caption</h4>
                   <p style={{ fontSize: 12, color: 'var(--text3)' }}>Analyze photos for captions</p>
+                </motion.div>
+                <motion.div whileHover={{ y: -4 }} onClick={() => navigate('/voice-cloning')} className="card card-glass card-interactive dashboard-voice-quick-card" style={{ padding: 18 }}>
+                  <MdRecordVoiceOver size={22} color="#00b8ff" style={{ marginBottom: 12 }} />
+                  <h4 style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)', marginBottom: 4 }}>Voice Cloning</h4>
+                  <p style={{ fontSize: 12, color: 'var(--text3)' }}>Generate AI voice-overs from scripts</p>
                 </motion.div>
               </div>
 
@@ -864,6 +954,8 @@ export default function Dashboard() {
     </div>
   )
 }
+
+
 
 
 

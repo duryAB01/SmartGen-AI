@@ -1,8 +1,8 @@
-﻿import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Sidebar from '../components/Sidebar.jsx'
 import WorkspaceThemeToggle from '../components/WorkspaceThemeToggle.jsx'
 import { useToast, useAuth } from '../App.jsx'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   MdEditNote, MdAutoAwesome, MdContentCopy, MdSave,
@@ -10,11 +10,12 @@ import {
   MdAdminPanelSettings, MdLogout
 } from 'react-icons/md'
 import { FaPen, FaMagic, FaCompress, FaExpand } from 'react-icons/fa'
+import { FaInstagram, FaTiktok, FaYoutube, FaLinkedin, FaXTwitter, FaThreads, FaWhatsapp, FaPinterest, FaPenNib, FaEnvelope } from 'react-icons/fa6'
 import api from '../services/api.js'
 import getApiErrorMessage from '../utils/getApiErrorMessage.js'
 import LoadingState from '../components/LoadingState.jsx'
 import ErrorAlert from '../components/ErrorAlert.jsx'
-import { PlatformSelector, ToneSelector, UsageRemainingBadge, AutoSavedIndicator, GenerateButton } from '../components/GenerationControls.jsx'
+import { PlatformDropdownSelector, ToneSelector, UsageRemainingBadge, AutoSavedIndicator, GenerateButton } from '../components/GenerationControls.jsx'
 
 const REWRITE_ACTIONS = [
   { id: 'grammar',      label: 'Improve Grammar',    icon: MdEditNote, color: '#00b8ff' },
@@ -26,17 +27,29 @@ const REWRITE_ACTIONS = [
 ]
 
 const TONES = ['Professional', 'Casual', 'Creative', 'Formal', 'Friendly']
-const PLATFORMS = ['Instagram', 'TikTok', 'YouTube', 'LinkedIn', 'X', 'Threads', 'WhatsApp', 'Blog', 'Pinterest', 'Email', 'Business']
+const PLATFORMS = [
+  { id: 'instagram', label: 'Instagram', icon: FaInstagram, color: '#E1306C', accent: '#F77737', summary: 'Short, social, visual-first rewritten copy.' },
+  { id: 'tiktok', label: 'TikTok', icon: FaTiktok, color: '#00F2EA', accent: '#FF0050', summary: 'Punchy, fast, video-native rewritten text.' },
+  { id: 'youtube', label: 'YouTube', icon: FaYoutube, color: '#FF0033', accent: '#FF6B6B', summary: 'Titles, descriptions, and creator-friendly wording.' },
+  { id: 'linkedin', label: 'LinkedIn', icon: FaLinkedin, color: '#0A66C2', accent: '#70B5F9', summary: 'Professional, clear, credibility-focused rewrite.' },
+  { id: 'twitter', label: 'X', icon: FaXTwitter, color: '#F8FAFC', accent: '#94A3B8', summary: 'Concise, sharp, single-idea wording.' },
+  { id: 'threads', label: 'Threads', icon: FaThreads, color: '#F8FAFC', accent: '#A78BFA', summary: 'Conversational and natural rewritten posts.' },
+  { id: 'whatsapp', label: 'WhatsApp', icon: FaWhatsapp, color: '#25D366', accent: '#86EFAC', summary: 'Friendly messages, statuses, and broadcasts.' },
+  { id: 'blog', label: 'Blog', icon: FaPenNib, color: '#FF5722', accent: '#FDBA74', summary: 'Structured, readable, SEO-aware rewrite.' },
+  { id: 'pinterest', label: 'Pinterest', icon: FaPinterest, color: '#E60023', accent: '#FF8AA1', summary: 'Searchable pin-friendly rewritten copy.' },
+  { id: 'email', label: 'Email', icon: FaEnvelope, color: '#FFB830', accent: '#FDE68A', summary: 'Clear, polished email-ready rewrite.' },
+]
 
 export default function RewritePage() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const toast = useToast()
 
   const [input, setInput]     = useState('')
   const [action, setAction]   = useState('grammar')
   const [tone, setTone]       = useState('Professional')
-  const [platform, setPlatform] = useState('General')
+  const [platform, setPlatform] = useState('linkedin')
   const [output, setOutput]   = useState('')
   const [loading, setLoading] = useState(false)
   const [saving, setSaving]   = useState(false)
@@ -57,6 +70,15 @@ export default function RewritePage() {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
+
+  // Pre-fill input when navigating from Playground
+  useEffect(() => {
+    const initial = location.state?.initialInput
+    if (initial) {
+      setInput(initial)
+      navigate('/rewrite', { replace: true, state: null })
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleRewrite = async () => {
     if (loading) return // prevent double-click
@@ -119,7 +141,7 @@ export default function RewritePage() {
       <Sidebar />
       <main className="main-content">
         
-        {/* â”€â”€ Navbar/Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── Navbar/Header ─────────────────────────────────────────────────── */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, position: 'relative' }}>
           <div>
             <h1 style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 800, color: 'var(--text)', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -182,16 +204,24 @@ export default function RewritePage() {
           {/* Action Buttons */}
           <div style={{ marginBottom: 20 }}>
             <div style={{ fontFamily: 'var(--font-head)', fontWeight: 700, fontSize: 13, marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text2)' }}>Rewrite Action</div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 12 }}>
-              {REWRITE_ACTIONS.map((act) => (
-                <motion.button key={act.id} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                  className={`btn ${action === act.id ? 'btn-primary' : 'btn-ghost'}`}
-                  onClick={() => setAction(act.id)}
-                  style={{ justifyContent: 'center', border: action === act.id ? `1px solid ${act.color}44` : '1px solid var(--border)', background: action === act.id ? `${act.color}15` : 'var(--bg)' }}>
-                  <act.icon size={16} style={{ marginRight: 8, color: action === act.id ? act.color : 'var(--text3)' }} />
-                  <span style={{ color: action === act.id ? act.color : 'var(--text)' }}>{act.label}</span>
-                </motion.button>
-              ))}
+            <div className="dashboard-format-grid rewrite-action-grid">
+              {REWRITE_ACTIONS.map((act) => {
+                const Icon = act.icon
+                return (
+                  <motion.button
+                    type="button"
+                    key={act.id}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`dashboard-format-card ${action === act.id ? 'active' : ''}`}
+                    onClick={() => setAction(act.id)}
+                    style={{ '--format-color': act.color }}
+                  >
+                    <Icon size={16} />
+                    <span>{act.label}</span>
+                  </motion.button>
+                )
+              })}
             </div>
           </div>
 
@@ -199,7 +229,7 @@ export default function RewritePage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16, marginBottom: 20 }}>
             <div className="form-group">
               <label className="form-label">Target Platform</label>
-              <PlatformSelector platforms={PLATFORMS} value={platform} onChange={setPlatform} />
+              <PlatformDropdownSelector platforms={PLATFORMS} value={platform} onChange={setPlatform} title="Select platform" hint="Rewrite style updates automatically." />
             </div>
             <div className="form-group">
               <label className="form-label">Target Tone</label>
@@ -260,4 +290,8 @@ export default function RewritePage() {
     </div>
   )
 }
+
+
+
+
 

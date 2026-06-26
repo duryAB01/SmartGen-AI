@@ -255,11 +255,36 @@ export default function LandingPage() {
   }
 
   const handleLandingPointerMove = (event) => {
-    const rect = event.currentTarget.getBoundingClientRect()
-    const x = ((event.clientX - rect.left) / rect.width) * 100
-    const y = ((event.clientY - rect.top) / rect.height) * 100
-    event.currentTarget.style.setProperty('--cursor-x', `${x}%`)
-    event.currentTarget.style.setProperty('--cursor-y', `${y}%`)
+    const glow = cursorGlowRef.current
+    glow.node = event.currentTarget
+    glow.targetX = event.clientX
+    glow.targetY = event.clientY
+
+    if (glow.x === null || glow.y === null) {
+      glow.x = glow.targetX
+      glow.y = glow.targetY
+    }
+
+    if (!glow.raf) {
+      const animateGlow = () => {
+        const state = cursorGlowRef.current
+        state.x += (state.targetX - state.x) * 0.18
+        state.y += (state.targetY - state.y) * 0.18
+        state.node?.style.setProperty('--cursor-x', `${state.x}px`)
+        state.node?.style.setProperty('--cursor-y', `${state.y}px`)
+
+        if (Math.abs(state.targetX - state.x) > 0.35 || Math.abs(state.targetY - state.y) > 0.35) {
+          state.raf = requestAnimationFrame(animateGlow)
+        } else {
+          state.x = state.targetX
+          state.y = state.targetY
+          state.node?.style.setProperty('--cursor-x', `${state.x}px`)
+          state.node?.style.setProperty('--cursor-y', `${state.y}px`)
+          state.raf = null
+        }
+      }
+      glow.raf = requestAnimationFrame(animateGlow)
+    }
   }
 
   const openUpgradeFlow = () => {
@@ -1591,6 +1616,8 @@ export default function LandingPage() {
     </div>
   )
 }
+
+
 
 
 

@@ -1,4 +1,4 @@
-﻿/* â”€â”€â”€ Design Tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
 :root {
   /* Enhanced color palette for modern SaaS */
   --bg:        #0a0b1a;
@@ -72,7 +72,7 @@
   --z-toast: 1080;
 }
 
-/* â”€â”€â”€ Reset â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -116,15 +116,15 @@ input.error, textarea.error, select.error {
   box-shadow: 0 0 0 3px rgba(255,107,157,0.1);
 }
 
-/* â”€â”€â”€ Scrollbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg2); }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
 
-/* â”€â”€â”€ Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Typography ──────────────────────────────────────────────────────────── */
 h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height: 1.2; }
 
-/* â”€â”€â”€ Utility â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Utility ────────────────────────────────────────────────────────────── */
 /* Layout */
 .flex    { display: flex; }
 .flex-col{ display: flex; flex-direction: column; }
@@ -345,7 +345,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
 .opacity-75 { opacity: 0.75; }
 .opacity-100 { opacity: 1; }
 
-/* â”€â”€â”€ Buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -447,7 +447,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   box-shadow: none !important;
 }
 
-/* â”€â”€â”€ Cards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Cards ──────────────────────────────────────────────────────────────── */
 .card {
   background: var(--bg2);
   border: 1px solid var(--border);
@@ -475,7 +475,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   box-shadow: 0 0 0 1px var(--accent), var(--shadow-lg);
 }
 
-/* â”€â”€â”€ Badges â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Badges ─────────────────────────────────────────────────────────────── */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -519,7 +519,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   border: 1px solid rgba(107,114,128,0.2);
 }
 
-/* â”€â”€â”€ Noise overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Noise overlay ──────────────────────────────────────────────────────── */
 .noise::before {
   content: '';
   position: fixed;
@@ -530,7 +530,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   opacity: 0.4;
 }
 
-/* â”€â”€â”€ Animations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Animations ─────────────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -658,7 +658,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   animation: spin 0.7s linear infinite;
 }
 
-/* â”€â”€â”€ Grid bg pattern â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Grid bg pattern ────────────────────────────────────────────────────── */
 .grid-bg {
   background-image:
     linear-gradient(rgba(30,33,48,0.5) 1px, transparent 1px),
@@ -666,7 +666,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   background-size: 40px 40px;
 }
 
-/* â”€â”€â”€ Glow accent dots â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Glow accent dots ───────────────────────────────────────────────────── */
 .glow-orb {
   position: absolute;
   border-radius: 50%;
@@ -674,7 +674,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   pointer-events: none;
 }
 
-/* â”€â”€â”€ Form helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Form helpers ───────────────────────────────────────────────────────── */
 .form-label {
   display: block;
   font-size: 13px;
@@ -688,14 +688,14 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
 .form-error { color: var(--danger); font-size: 12px; margin-top: 5px; }
 .form-hint  { color: var(--text3); font-size: 12px; margin-top: 5px; }
 
-/* â”€â”€â”€ Divider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Divider ────────────────────────────────────────────────────────────── */
 .divider {
   border: none;
   border-top: 1px solid var(--border);
   margin: 20px 0;
 }
 
-/* â”€â”€â”€ Tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Tabs ───────────────────────────────────────────────────────────────── */
 .tabs {
   display: flex;
   gap: 4px;
@@ -721,7 +721,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
 }
 .tab:hover:not(.active) { color: var(--text); }
 
-/* â”€â”€â”€ Toast â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Toast ──────────────────────────────────────────────────────────────── */
 .toast-container {
   position: fixed;
   bottom: 24px;
@@ -748,7 +748,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
 .toast.error   { border-left: 3px solid var(--danger); }
 .toast.info    { border-left: 3px solid var(--accent2); }
 
-/* â”€â”€â”€ Table â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Table ──────────────────────────────────────────────────────────────── */
 .data-table { width: 100%; border-collapse: collapse; }
 .data-table th {
   text-align: left;
@@ -769,7 +769,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
 .data-table tr:last-child td { border-bottom: none; }
 .data-table tr:hover td { background: var(--bg3); }
 
-/* â”€â”€â”€ Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Modal ──────────────────────────────────────────────────────────────── */
 .modal-overlay {
   position: fixed; inset: 0;
   background: rgba(7,8,13,0.8);
@@ -789,7 +789,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   box-shadow: 0 24px 80px rgba(0,0,0,0.6);
 }
 
-/* â”€â”€â”€ Sidebar Layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Sidebar Layout ─────────────────────────────────────────────────────── */
 .app-layout {
   display: flex;
   min-height: 100vh;
@@ -876,13 +876,13 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   margin-top: 4px;
 }
 
-/* â”€â”€â”€ Stars â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Stars ──────────────────────────────────────────────────────────────── */
 .stars { display: flex; gap: 4px; }
 .star  { font-size: 20px; cursor: pointer; transition: transform 0.1s; color: var(--text3); }
 .star.filled { color: var(--warning); }
 .star:hover  { transform: scale(1.2); }
 
-/* â”€â”€â”€ Progress bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Progress bar ───────────────────────────────────────────────────────── */
 .progress-bar {
   height: 3px;
   background: var(--border);
@@ -896,7 +896,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   transition: width 0.4s ease;
 }
 
-/* â”€â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
 /* Breakpoints */
 @media (max-width: 640px) {
   .sidebar { transform: translateX(-100%); }
@@ -1027,7 +1027,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   }
 }
 
-/* â”€â”€â”€ Content output area â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Content output area ────────────────────────────────────────────────── */
 .output-box {
   background: var(--bg3);
   border: 1px solid var(--border);
@@ -1041,7 +1041,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   word-break: break-word;
 }
 
-/* â”€â”€â”€ Content type pills â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Content type pills ─────────────────────────────────────────────────── */
 .type-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -1062,7 +1062,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
 .type-pill.selected { border-color: var(--accent); background: rgba(0,229,176,0.06); color: var(--accent); }
 .type-pill .type-icon { font-size: 22px; margin-bottom: 6px; display: block; }
 
-/* â”€â”€â”€ Stats cards â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Stats cards ────────────────────────────────────────────────────────── */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -1090,7 +1090,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   font-weight: 600;
 }
 
-/* â”€â”€â”€ Empty state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Empty state ────────────────────────────────────────────────────────── */
 .empty-state {
   text-align: center;
   padding: var(--space-16) var(--space-6);
@@ -1113,7 +1113,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   line-height: 1.6;
 }
 
-/* â”€â”€â”€ Loading states â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Loading states ───────────────────────────────────────────────────────── */
 .loading-skeleton {
   background: linear-gradient(90deg, var(--bg3) 0%, var(--bg4) 50%, var(--bg3) 100%);
   background-size: 200% 100%;
@@ -1136,13 +1136,13 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
 .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
 .loading-dots span:nth-child(3) { animation-delay: 0s; }
 
-/* â”€â”€â”€ Focus visible for accessibility â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Focus visible for accessibility ───────────────────────────────────────── */
 .focus-visible:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-/* â”€â”€â”€ Selection styling â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Selection styling ───────────────────────────────────────────────────── */
 ::selection {
   background: rgba(0,245,160,0.2);
   color: var(--text);
@@ -1152,7 +1152,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   color: var(--text);
 }
 
-/* â”€â”€â”€ Scrollbar improvements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Scrollbar improvements ───────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -1170,7 +1170,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   background: var(--border3);
 }
 
-/* â”€â”€â”€ Enhanced form styling â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Enhanced form styling ─────────────────────────────────────────────────── */
 .form-group {
   margin-bottom: var(--space-5);
 }
@@ -1200,7 +1200,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   gap: 4px;
 }
 
-/* â”€â”€â”€ Enhanced table styling â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Enhanced table styling ───────────────────────────────────────────────── */
 .data-table {
   width: 100%;
   border-collapse: collapse;
@@ -1230,7 +1230,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   background: var(--bg3); 
 }
 
-/* â”€â”€â”€ Enhanced modal styling â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Enhanced modal styling ───────────────────────────────────────────────── */
 .modal-overlay {
   position: fixed; 
   inset: 0;
@@ -1256,7 +1256,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   overflow-y: auto;
 }
 
-/* â”€â”€â”€ Enhanced toast styling â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Enhanced toast styling ───────────────────────────────────────────────── */
 .toast-container {
   position: fixed;
   bottom: var(--space-6);
@@ -1293,7 +1293,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   background: rgba(0,212,255,0.05);
 }
 
-/* â”€â”€â”€ Profile Avatar Dropdown â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Profile Avatar Dropdown ────────────────────────────────────────────── */
 .avatar-dropdown {
   position: absolute;
   top: 100%;
@@ -1333,7 +1333,7 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
   color: var(--text);
 }
 
-/* â”€â”€â”€ Bento Grid & Re-design Classes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Bento Grid & Re-design Classes ────────────────────────────────────── */
 .bento-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -1520,17 +1520,17 @@ h1,h2,h3,h4,h5,h6 { font-family: var(--font-head); font-weight: 700; line-height
 .landing-page::after {
   content: "";
   position: fixed;
-  left: var(--cursor-x, 50%);
-  top: var(--cursor-y, 22%);
-  width: 460px;
-  height: 460px;
+  left: var(--cursor-x, 50vw);
+  top: var(--cursor-y, 35vh);
+  width: min(760px, 78vw);
+  height: min(760px, 78vw);
   pointer-events: none;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   background:
-    radial-gradient(circle, rgba(32, 246, 199, 0.14) 0%, rgba(56, 189, 248, 0.06) 34%, transparent 72%);
-  filter: blur(32px);
-  opacity: 0.7;
-  transition: left 0.12s linear, top 0.12s linear, opacity 0.2s ease;
+    radial-gradient(circle at 50% 50%, rgba(32, 246, 199, 0.22) 0%, rgba(56, 189, 248, 0.13) 24%, rgba(167, 139, 250, 0.07) 46%, transparent 72%);
+  filter: blur(46px);
+  opacity: 0.9;
+  will-change: left, top, transform;
   z-index: 0;
 }
 
@@ -5550,4 +5550,220 @@ body[data-workspace-theme="light"] .dashboard-page .dashboard-tone-chip {
 .upgrade-plan-card li svg {
   color: var(--accent);
   flex-shrink: 0;
+}
+
+.dashboard-playground-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.75fr) minmax(320px, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin: 8px 0 30px;
+  padding: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(32, 246, 199, 0.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(0, 229, 176, 0.12), rgba(124, 106, 247, 0.08) 46%, rgba(0, 184, 255, 0.08)),
+    var(--bg2);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.dashboard-playground-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(90deg, rgba(0,0,0,0.8), transparent 75%);
+  pointer-events: none;
+}
+
+.dashboard-playground-glow {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -70px;
+  top: -95px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(32,246,199,0.32), transparent 68%);
+  filter: blur(6px);
+  animation: dashboardGlowFloat 6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes dashboardGlowFloat {
+  from { transform: translate3d(-8px, 4px, 0) scale(0.95); opacity: 0.72; }
+  to { transform: translate3d(16px, 16px, 0) scale(1.08); opacity: 1; }
+}
+
+.dashboard-playground-copy,
+.dashboard-playground-panel {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-playground-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(32, 246, 199, 0.24);
+  background: rgba(0, 229, 176, 0.1);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dashboard-playground-copy h3 {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.dashboard-playground-copy p {
+  margin: 0;
+  color: var(--text2);
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 390px;
+}
+
+.dashboard-playground-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  background: rgba(7, 11, 24, 0.42);
+  backdrop-filter: blur(14px);
+}
+
+.dashboard-playground-modes {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dashboard-playground-modes button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: rgba(10, 14, 28, 0.72);
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.dashboard-playground-modes button:hover,
+.dashboard-playground-modes button.active {
+  transform: translateY(-1px);
+  border-color: rgba(32,246,199,0.45);
+  background: linear-gradient(135deg, rgba(0,229,176,0.16), rgba(0,184,255,0.12));
+  color: var(--text);
+  box-shadow: 0 10px 28px rgba(0, 229, 176, 0.1);
+}
+
+.dashboard-playground-input-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.dashboard-playground-input-row input {
+  min-height: 46px;
+  border-radius: 13px;
+}
+
+.dashboard-playground-input-row button {
+  min-height: 46px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #061016;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(0, 229, 176, 0.18);
+}
+
+.dashboard-voice-quick-card {
+  border-color: rgba(0, 184, 255, 0.22) !important;
+}
+
+body[data-workspace-theme="light"] .dashboard-playground-card {
+  background:
+    linear-gradient(135deg, rgba(20,184,166,0.12), rgba(79,70,229,0.06) 48%, rgba(14,165,233,0.08)),
+    #ffffff;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+body[data-workspace-theme="light"] .dashboard-playground-panel,
+body[data-workspace-theme="light"] .dashboard-playground-modes button {
+  background: rgba(248, 250, 252, 0.82);
+}
+
+@media (max-width: 880px) {
+  .dashboard-playground-card,
+  .dashboard-playground-input-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-playground-modes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+.landing-cursor-glow {
+  position: fixed;
+  left: var(--cursor-x, 50vw);
+  top: var(--cursor-y, 35vh);
+  width: min(820px, 84vw);
+  height: min(820px, 84vw);
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(32, 246, 199, 0.28) 0%, rgba(56, 189, 248, 0.16) 24%, rgba(167, 139, 250, 0.08) 47%, transparent 72%);
+  filter: blur(42px);
+  opacity: 0.95;
+  mix-blend-mode: screen;
+  will-change: left, top, transform;
+  z-index: 1;
+}
+
+.landing-page > nav,
+.landing-page > section,
+.landing-page > footer,
+.landing-page .landing-ambient-workflows,
+.landing-page .support-chat-widget,
+.landing-page .support-mini-shell {
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .landing-cursor-glow {
+    width: 520px;
+    height: 520px;
+    opacity: 0.7;
+  }
 }

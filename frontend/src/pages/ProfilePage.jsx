@@ -20,13 +20,13 @@ export default function ProfilePage() {
   const [pwdForm, setPwd]   = useState({ current: '', newPwd: '', confirm: '' })
   const [saving, setSaving] = useState(false)
   const [pwdSaving, setPwdSaving] = useState(false)
-  const [contentCount, setContentCount] = useState(0)
+  const [stats, setStats] = useState(null)
   const [showDropdown, setShowDropdown] = useState(false)
   
   const dropdownRef = useRef(null)
 
   useEffect(() => {
-    fetchCount()
+    fetchStats()
     
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -37,10 +37,10 @@ export default function ProfilePage() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const fetchCount = async () => {
+  const fetchStats = async () => {
     try {
-      const res = await api.get('/content/history')
-      setContentCount(res.data.count || 0)
+      const res = await api.get('/auth/stats')
+      setStats(res.data?.stats || null)
     } catch { /* fail silently */ }
   }
 
@@ -169,14 +169,16 @@ export default function ProfilePage() {
             </div>
 
             {/* Stats */}
-            <div style={{ display: 'flex', gap: 20, marginBottom: 24 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 14, marginBottom: 24 }}>
               {[
-                { label: 'Content Generated', value: contentCount },
-                { label: 'Account Type',      value: user?.role === 'admin' ? 'Admin' : 'Free' }
+                { label: 'Generated This Month', value: stats?.generationsThisMonth ?? 0 },
+                { label: 'Saved Items', value: stats?.savedTotal ?? 0 },
+                { label: 'Credits Left Today', value: stats?.remainingToday ?? '—' },
+                { label: 'Account Type', value: user?.role === 'admin' ? 'Admin' : (stats?.plan === 'starter' ? 'Starter' : 'Free') }
               ].map(({ label, value }) => (
-                <motion.div key={label} whileHover={{ y: -2 }} style={{ flex: 1, background: 'var(--bg3)', borderRadius: 'var(--radius)', padding: '14px 16px', border: '1px solid var(--border)' }}>
+                <motion.div key={label} whileHover={{ y: -2 }} style={{ background: 'var(--bg3)', borderRadius: 'var(--radius)', padding: '14px 16px', border: '1px solid var(--border)' }}>
                   <div style={{ fontFamily: 'var(--font-head)', fontSize: 22, fontWeight: 800, color: 'var(--accent)' }}>{value}</div>
-                  <div style={{ fontSize: 12, color: 'var(--text2)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 4 }}>{label}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text2)', textTransform: 'uppercase', letterSpacing: '0.04em', marginTop: 4 }}>{label}</div>
                 </motion.div>
               ))}
             </div>
@@ -250,5 +252,6 @@ export default function ProfilePage() {
     </div>
   )
 }
+
 
 
