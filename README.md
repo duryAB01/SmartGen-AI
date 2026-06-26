@@ -1,4 +1,4 @@
-﻿# SmartGen AI
+# SmartGen AI
 
 SmartGen AI is a full-stack AI content generation platform. It helps users create platform-ready text, captions, hashtags, image-based content, rewrites, and beta voice-cloned audio using a React frontend and Node/Express backend.
 
@@ -183,13 +183,10 @@ cd backend
 npm test
 ```
 
-## Important Notes
+## Architecture & Deployment Notes
 
-- Do not commit `.env` files.
-- Do not commit `node_modules`, `dist`, logs, or uploads.
-- Keep API keys and private URLs only in backend `.env`.
-- Voice Cloning uses a temporary external Gradio runtime, so Colab/Gradio must stay running for that feature.
-- Generated/reference voice audio is handled temporarily by the backend. Optional default voice sample storage is browser-local only.
+- **Voice Cloning Runtime**: The voice cloning feature utilizes an external Gradio runtime (e.g., Google Colab). The external Gradio host must remain active to process voice cloning requests.
+- **Audio Processing**: Staged reference voice audio and cloned outputs are processed temporarily on the backend server. By default, optional user-specific reference audio is stored browser-locally to ensure privacy.
 
 ## Common Issues
 
